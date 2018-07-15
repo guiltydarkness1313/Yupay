@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewCloth"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="TODO"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/textVIewCloth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageViewCloth"
+            android:layout_margin="5dp"
+            tools:text="Ropa Casual" />
+
+        <ImageButton
+            android:id="@+id/ButtonMore"
+            android:layout_width="14sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textVIewCloth"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

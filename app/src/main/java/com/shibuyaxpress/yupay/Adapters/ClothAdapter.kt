@@ -1,16 +1,19 @@
-package com.shibuyaxpress.yupay
+package com.shibuyaxpress.yupay.Adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.shibuyaxpress.yupay.Holders.ClothHolder
+import com.shibuyaxpress.yupay.Models.Cloth
+import com.shibuyaxpress.yupay.R
 
-class ClothAdapter:RecyclerView.Adapter<ClothHolder> {
+class ClothAdapter(context: Context) : RecyclerView.Adapter<ClothHolder>() {
     private var mInflater:LayoutInflater?=null
     private var mCloth:List<Cloth>?=null
 
-    constructor(context: Context){
+    init {
         mInflater= LayoutInflater.from(context)
     }
 
@@ -21,7 +24,7 @@ class ClothAdapter:RecyclerView.Adapter<ClothHolder> {
 
     override fun onBindViewHolder(holder: ClothHolder, position: Int) {
         if(mCloth!=null){
-            var current:Cloth=mCloth!!.get(position)
+            var current: Cloth =mCloth!!.get(position)
             holder.nameCloth!!.text=current.name
         }else{
             holder.nameCloth!!.text="No tiene ropa disponible en su inventario!!"
@@ -29,10 +32,10 @@ class ClothAdapter:RecyclerView.Adapter<ClothHolder> {
     }
 
     override fun getItemCount(): Int {
-        if (mCloth!=null){
-            return mCloth!!.size
+        return if (mCloth!=null){
+            mCloth!!.size
         }else{
-            return 0
+            0
         }
     }
 
