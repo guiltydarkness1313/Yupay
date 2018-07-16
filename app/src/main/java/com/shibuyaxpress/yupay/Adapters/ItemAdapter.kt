@@ -28,7 +28,7 @@ class ItemAdapter(context:Context):RecyclerView.Adapter<ItemHolder>() {
         return if(mItem != null){
             mItem!!.size
         }else{
-            8
+            16
         }
     }
 
