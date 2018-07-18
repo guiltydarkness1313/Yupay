@@ -1,13 +1,13 @@
-package com.shibuyaxpress.yupay.Repository
+package com.shibuyaxpress.yupay.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
-import com.shibuyaxpress.yupay.Models.Cloth
+import com.shibuyaxpress.yupay.models.Cloth
 
 @Dao
-public interface ClothDAO {
+interface ClothDAO {
     @Insert
     fun insert(cloth: Cloth?)
 

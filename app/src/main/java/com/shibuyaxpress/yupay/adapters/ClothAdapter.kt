@@ -1,12 +1,13 @@
-package com.shibuyaxpress.yupay.Adapters
+package com.shibuyaxpress.yupay.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shibuyaxpress.yupay.Holders.ClothHolder
-import com.shibuyaxpress.yupay.Models.Cloth
+import com.shibuyaxpress.yupay.GlideApp
+import com.shibuyaxpress.yupay.holders.ClothHolder
+import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.R
 
 class ClothAdapter(context: Context) : RecyclerView.Adapter<ClothHolder>() {
@@ -18,16 +19,21 @@ class ClothAdapter(context: Context) : RecyclerView.Adapter<ClothHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClothHolder {
-        var itemView: View =mInflater!!.inflate(R.layout.recyclerview_item,parent,false)
+        var itemView: View =mInflater!!.inflate(R.layout.cloth_item,parent,false)
         return ClothHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ClothHolder, position: Int) {
         if(mCloth!=null){
-            var current: Cloth =mCloth!!.get(position)
-            holder.nameCloth!!.text=current.name
+            val current: Cloth =mCloth!!.get(position)
+            holder.name!!.text=current.name
+            GlideApp.with(mInflater!!.context)
+                    .load(current.image)
+                    .placeholder(R.drawable.ic_image_black_24dp)
+                    .fitCenter()
+                    .into(holder.image!!)
         }else{
-            holder.nameCloth!!.text="No tiene ropa disponible en su inventario!!"
+            //holder.nameCloth!!.text="No tiene ropa disponible en su inventario!!"
         }
     }
 

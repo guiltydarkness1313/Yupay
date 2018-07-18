@@ -3,4 +3,6 @@
     <string name="button_save">Guardar</string>
     <string name="empty_not_saved">La ropa no ha sido guardada porque esta vacia</string>
     <string name="hint_word">Ingrese el nombre de la ropa</string>
+    <string name="imagen_de_ropa">Imagen de ropa</string>
+    <string name="cloth_price_input">Ingrese el precio de la ropa</string>
 </resources>

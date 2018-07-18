@@ -1,14 +1,13 @@
-package com.shibuyaxpress.yupay.Adapters
+package com.shibuyaxpress.yupay.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shibuyaxpress.yupay.Activities.ItemActivity
 import com.shibuyaxpress.yupay.GlideApp
-import com.shibuyaxpress.yupay.Holders.ItemHolder
-import com.shibuyaxpress.yupay.Models.Cloth
+import com.shibuyaxpress.yupay.holders.ItemHolder
+import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.R
 
 class ItemAdapter(context:Context):RecyclerView.Adapter<ItemHolder>() {

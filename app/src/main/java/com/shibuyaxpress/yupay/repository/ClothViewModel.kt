@@ -1,10 +1,9 @@
-package com.shibuyaxpress.yupay.Repository
+package com.shibuyaxpress.yupay.repository
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.shibuyaxpress.yupay.Models.Cloth
-import com.shibuyaxpress.yupay.Repository.ClothRepository
+import com.shibuyaxpress.yupay.models.Cloth
 
 class ClothViewModel(application: Application) : AndroidViewModel(application) {
     private var mRepository: ClothRepository?=null

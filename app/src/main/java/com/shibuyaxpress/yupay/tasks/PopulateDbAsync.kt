@@ -1,9 +1,9 @@
-package com.shibuyaxpress.yupay.Tasks
+package com.shibuyaxpress.yupay.tasks
 
 import android.os.AsyncTask
-import com.shibuyaxpress.yupay.Models.Cloth
-import com.shibuyaxpress.yupay.Repository.ClothDAO
-import com.shibuyaxpress.yupay.Repository.ClothRoomDatabase
+import com.shibuyaxpress.yupay.models.Cloth
+import com.shibuyaxpress.yupay.repository.ClothDAO
+import com.shibuyaxpress.yupay.repository.ClothRoomDatabase
 
 class PopulateDbAsync(db: ClothRoomDatabase) : AsyncTask<Void, Void, Void>() {
     private var mDao: ClothDAO?=null

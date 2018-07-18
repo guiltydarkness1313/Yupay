@@ -1,8 +1,7 @@
-package com.shibuyaxpress.yupay.Activities
+package com.shibuyaxpress.yupay.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.media.MediaScannerConnection
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.shibuyaxpress.yupay.GlideApp
 import com.shibuyaxpress.yupay.R
 import java.io.ByteArrayOutputStream
