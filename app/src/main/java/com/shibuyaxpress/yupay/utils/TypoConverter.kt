@@ -1,23 +1,16 @@
 package com.shibuyaxpress.yupay.utils
 
 import android.arch.persistence.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class TypoConverter {
     @TypeConverter
-    fun fromTimeStamp(value:Long?):Date?{
-        return if(value==null){
-            null
-        }else{
-            Date(value)
-        }
+    fun fromTimestamp(value: Long?): Date? {
+        return if (value == null) null else Date(value)
     }
+
     @TypeConverter
-    fun dateToTimestamp(date:Date):Long?{
-        if(date == null){
-            return null
-        }else{
-            return date.time
-        }
+    fun dateToTimestamp(date: Date?): Long? {
+        return if (date == null) null else date.time
     }
 }

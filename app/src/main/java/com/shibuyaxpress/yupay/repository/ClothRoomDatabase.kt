@@ -2,6 +2,7 @@ package com.shibuyaxpress.yupay.repository
 
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
+import android.arch.persistence.room.migration.Migration
 import android.content.Context
 import android.support.annotation.NonNull
 import com.shibuyaxpress.yupay.models.Cloth
@@ -15,19 +16,19 @@ import com.shibuyaxpress.yupay.utils.TypoConverter
         Inventory::class,
         Registry::class,
         Ticket::class),
-        version = 2,
+        version = 3,
         exportSchema = false)
 @TypeConverters(TypoConverter::class)
 abstract class ClothRoomDatabase: RoomDatabase() {
     abstract fun clothDao(): ClothDAO
     abstract fun inventoryDAO():InventoryDAO
     companion object {
-       /* private val migration1To2 = object : Migration(1,2){
+       private val migration2To3 = object : Migration(2,3){
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE cloth ALTER COLUMN image")
+                //database.execSQL("")
             }
 
-        }*/
+        }
         private val sRoomDatabaseCallback = object : RoomDatabase.Callback() {
 
             override fun onOpen(@NonNull db: SupportSQLiteDatabase) {
@@ -42,7 +43,8 @@ abstract class ClothRoomDatabase: RoomDatabase() {
                     INSTANCE =Room.databaseBuilder(context.applicationContext,
                             ClothRoomDatabase::class.java,
                             "yupay")
-                            //.addCallback(sRoomDatabaseCallback)
+                  //
+                            //          .addMigrations(migration2To3)
                             .build()
                 }
             }
