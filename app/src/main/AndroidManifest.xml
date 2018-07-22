@@ -23,7 +23,7 @@
         <activity android:name=".activities.NewClothActivity" />
         <activity android:name=".activities.NewItemActivity" />
         <activity android:name=".activities.ItemActivity" />
-        <activity android:name=".AddStockActivity"></activity>
+        <activity android:name=".activities.AddStockActivity"></activity>
     </application>
 
 </manifest>

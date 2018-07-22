@@ -12,7 +12,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.shibuyaxpress.yupay.GlideApp
+import com.shibuyaxpress.yupay.utils.GlideApp
 import com.shibuyaxpress.yupay.R
 import java.io.ByteArrayOutputStream
 import java.io.File

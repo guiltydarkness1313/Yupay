@@ -1,7 +1,8 @@
-package com.shibuyaxpress.yupay
+package com.shibuyaxpress.yupay.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.shibuyaxpress.yupay.R
 
 class AddStockActivity : AppCompatActivity() {
 

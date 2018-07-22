@@ -5,4 +5,9 @@
     <string name="hint_word">Ingrese el nombre de la ropa</string>
     <string name="imagen_de_ropa">Imagen de ropa</string>
     <string name="cloth_price_input">Ingrese el precio de la ropa</string>
+    <string name="button_plus">plus button</string>
+    <string name="zero">0</string>
+    <string name="minus_button">minus button</string>
+    <string name="ingrese_el_stock_del_producto">Ingrese el stock del producto:</string>
+    <string name="add_image">add image</string>
 </resources>

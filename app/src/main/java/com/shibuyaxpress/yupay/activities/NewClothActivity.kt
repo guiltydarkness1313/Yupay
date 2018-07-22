@@ -12,7 +12,7 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import android.widget.*
-import com.shibuyaxpress.yupay.GlideApp
+import com.shibuyaxpress.yupay.utils.GlideApp
 import com.shibuyaxpress.yupay.R
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -28,6 +28,9 @@ class NewClothActivity : AppCompatActivity() {
     private var imageView: ImageView? = null
     private var addImage: ImageButton? = null
     private var saveButton: Button? = null
+    private var addButton: ImageButton? = null
+    private var removeButton: ImageButton? = null
+    private var editStock: EditText? = null
     private val GALLERY = 1
     private val CAMERA = 2
 
@@ -40,22 +43,12 @@ class NewClothActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.button_save)
         imageView = findViewById(R.id.imageCloth)
         addImage = findViewById(R.id.addImage)
-
-        /*saveButton!!.setOnClickListener {
-            val replyIntent = Intent()
-            when {
-                TextUtils.isEmpty(mEditClothName!!.text) -> setResult(Activity.RESULT_CANCELED,replyIntent)
-                TextUtils.isEmpty(mEditClothPrice!!.text) -> setResult(Activity.RESULT_CANCELED,replyIntent)
-                else -> {
-                    val cloth:String=mEditClothName!!.text.toString()
-                    Log.d("dato ropa",cloth)
-                    replyIntent.putExtra(EXTRA_REPLY,cloth)
-                    setResult(Activity.RESULT_OK,replyIntent)
-                }
-            }
-            finish()
-        }*/
-
+        removeButton = findViewById(R.id.btnMinus)
+        addButton = findViewById(R.id.btnPlus)
+        editStock = findViewById(R.id.editTextStock)
+        supportActionBar!!.title = "Ingrese un nuevo producto"
+        editStock!!.setText("0")
+        stockManagement()
         saveButton!!.setOnClickListener {
             when {
                 TextUtils.isEmpty(editClothName!!.text) -> editClothName!!.error = "Ingrese el nombre de la ropa"
@@ -71,9 +64,45 @@ class NewClothActivity : AppCompatActivity() {
         addImage!!.setOnClickListener {
             showPictureDialog()
         }
-
-
     }
+
+    private fun stockManagement(){
+        addButton!!.setOnClickListener{
+            if(TextUtils.isEmpty(editStock!!.text)){
+                editStock!!.setText("0")
+                var current = editStock!!.text.toString().toInt()
+                current += 1
+                editStock!!.setText(current.toString())
+            }else{
+                var current = editStock!!.text.toString().toInt()
+                if(current >= 0){
+                    current += 1
+                    editStock!!.setText(current.toString())
+                }else{
+                    Toast.makeText(this@NewClothActivity,"No se puede",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        removeButton!!.setOnClickListener{
+            if(TextUtils.isEmpty(editStock!!.text)){
+                editStock!!.setText("0")
+                var current = editStock!!.text.toString().toInt()
+                current -= 1
+                editStock!!.setText(current.toString())
+            }else{
+                var current = editStock!!.text.toString().toInt()
+                if(current > 0)
+                {
+                    current -= 1
+                    editStock!!.setText(current.toString())
+                }else{
+                    Toast.makeText(this@NewClothActivity,"No se puede",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
+
     private fun showPictureDialog(){
         val pictureDialog = AlertDialog.Builder(this)
         pictureDialog.setTitle("Seleccione una acción")
@@ -105,10 +134,12 @@ class NewClothActivity : AppCompatActivity() {
         val replyIntent = Intent()
         val name = editClothName!!.text.toString()
         val price = editClothPrice!!.text.toString().toDouble()
+        val stock  = editStock!!.text.toString().toInt()
         val imagePath = saveImage(imageBitmap!!)
         replyIntent.putExtra("name",name)
         replyIntent.putExtra("price",price)
         replyIntent.putExtra("image",imagePath)
+        replyIntent.putExtra("stock",stock)
         Log.d("Bundle+IMAGE", replyIntent.extras.toString()+" ${imagePath}")
         setResult(Activity.RESULT_OK,replyIntent)
     }
@@ -126,11 +157,6 @@ class NewClothActivity : AppCompatActivity() {
                                 .placeholder(R.drawable.ic_image_black_24dp)
                                 .fitCenter()
                                 .into(imageView!!)
-                        //val path = saveImage(bitmap)
-                        //Log.d("TAG", path::class.simpleName)
-                        //Toast.makeText(this@NewClothActivity,
-                        //       "imagen guardada!-->route::${path}",Toast.LENGTH_SHORT).show()
-                        //imageView!!.setImageBitmap(bitmap)
                         setValueForImageBitmap(bitmap)
                     }catch (e: IOException){
                         e.printStackTrace()
@@ -147,10 +173,6 @@ class NewClothActivity : AppCompatActivity() {
                             .placeholder(R.drawable.ic_image_black_24dp)
                             .fitCenter()
                             .into(imageView!!)
-                    //imageView!!.setImageBitmap(thumbnail)
-                    //saveImage(thumbnail)
-                    //Toast.makeText(this@NewClothActivity,"imagen guardada",
-                    //       Toast.LENGTH_SHORT).show()
                     setValueForImageBitmap(thumbnail)
                 }catch (e:NullPointerException){
                     e.printStackTrace()

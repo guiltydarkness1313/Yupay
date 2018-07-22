@@ -14,5 +14,8 @@ interface InventoryDAO {
     fun deleteAll()
 
     @Query("SELECT * FROM inventory ORDER BY id ASC")
-    fun getAllInventory():LiveData<List<Inventory>>
+    fun getAllInventory():List<Inventory>
+
+    @Query("SELECT * FROM inventory WHERE id = :id")
+    fun getItemBySearch(id:Int?):LiveData<List<Inventory>>
 }

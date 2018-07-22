@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shibuyaxpress.yupay.GlideApp
+import com.shibuyaxpress.yupay.utils.GlideApp
 import com.shibuyaxpress.yupay.holders.ItemHolder
 import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.R

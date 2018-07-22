@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.Toast
@@ -19,12 +18,8 @@ import com.shibuyaxpress.yupay.adapters.ClothAdapter
 import com.shibuyaxpress.yupay.repository.ClothViewModel
 import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.R
-import com.shibuyaxpress.yupay.SpacesItemDecoration
-import kotlinx.android.synthetic.main.activity_main.*
-import java.sql.Timestamp
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import com.shibuyaxpress.yupay.models.Inventory
+import com.shibuyaxpress.yupay.utils.SpacesItemDecoration
 import java.util.*
 
 
@@ -53,7 +48,7 @@ import java.util.*
            })
            buttonFAB!!.setOnClickListener {
                val intent=Intent(this@MainActivity, NewClothActivity::class.java)
-               startActivityForResult(intent,NEW_WORD_ACTIVITY_REQUEST_CODE);
+               startActivityForResult(intent,NEW_WORD_ACTIVITY_REQUEST_CODE)
            }
        }
 
@@ -69,16 +64,25 @@ import java.util.*
        @RequiresApi(Build.VERSION_CODES.O)
        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
            super.onActivityResult(requestCode, resultCode, data)
-           if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-               //cambiar codigo aqui
-               val cloth= Cloth(null, data!!.getStringExtra("name"),
-                       data!!.getDoubleExtra("price",0.0),
-                       data!!.getStringExtra("image"),null, Date())
-               //cloth.name=(data!!.getStringExtra(NewClothActivity::EXTRA_REPLY.toString()))
-               Log.d("Datos",cloth.toString())
-               mClothViewModel!!.insert(cloth)
+           if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+               if (data != null) {//cambiar codigo aqui
+                   Log.d("CAGADAS",mClothViewModel!!.getItems().toString())
+                   val inventory = Inventory(null, data.getIntExtra("stock", 0))
+                   mClothViewModel!!.setInventory(inventory)
+                   val currentInventory = mClothViewModel!!.searchItemFromInventory(inventory)
+                   currentInventory.observe(this, Observer { item ->
+                       Log.d("valor",item.toString())
+                       val cloth = Cloth(null, data.getStringExtra("name"),
+                               data.getDoubleExtra("price", 0.0),
+                               data.getStringExtra("image"), item!!.get(0).id, Date())
+                       Log.d("Datos", cloth.toString())
+                       mClothViewModel!!.insert(cloth)
+                   })
+               } else {
+                   Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
+               }
            }else{
-               Toast.makeText(applicationContext, R.string.empty_not_saved,Toast.LENGTH_LONG).show()
+               Toast.makeText(applicationContext,"los datos estan vacios", Toast.LENGTH_SHORT).show()
            }
        }
 

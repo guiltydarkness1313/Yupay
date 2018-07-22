@@ -11,33 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="200dp">
 
-            <ImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/imageCloth"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_centerHorizontal="false"
-                android:layout_centerVertical="false"
-                android:adjustViewBounds="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:contentDescription="@string/imagen_de_ropa"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:civ_shadow="false"
+                app:srcCompat="@drawable/tshirt" />
 
             <ImageButton
                 android:id="@+id/addImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginStart="0dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="add image"
+                android:contentDescription="@string/add_image"
                 android:elevation="6dp"
-                app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+                app:srcCompat="@drawable/ic_add_a_photo" />
         </RelativeLayout>
 
         <EditText
@@ -62,6 +67,46 @@
             android:inputType="numberDecimal"
             android:padding="@dimen/small_padding"
             android:textSize="18sp" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingrese_el_stock_del_producto" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:contentDescription="@string/minus_button"
+                app:srcCompat="@drawable/ic_remove_black" />
+
+            <EditText
+                android:id="@+id/editTextStock"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:ems="10"
+                android:hint="@string/zero"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:contentDescription="@string/button_plus"
+                app:srcCompat="@drawable/ic_add" />
+        </LinearLayout>
 
     </LinearLayout>
 
