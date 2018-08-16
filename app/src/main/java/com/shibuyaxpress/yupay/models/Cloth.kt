@@ -15,7 +15,7 @@ import java.util.*
         childColumns = arrayOf("inventoryId"),
         onDelete =  ForeignKey.CASCADE)),
         indices = arrayOf(Index(value = "inventoryId")))
-data class Cloth (@PrimaryKey(autoGenerate = true) var id: Int?,
+data class Cloth (@PrimaryKey(autoGenerate = true) var id: Long?,
                   @NonNull var name: String?,
                   @NonNull var price: Double?,
                   @NonNull var image: String?,

@@ -43,6 +43,7 @@ abstract class ClothRoomDatabase: RoomDatabase() {
                     INSTANCE =Room.databaseBuilder(context.applicationContext,
                             ClothRoomDatabase::class.java,
                             "yupay")
+                            .allowMainThreadQueries()
                             //          .addMigrations(migration2To3)
                             .build()
                 }

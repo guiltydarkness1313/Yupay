@@ -7,7 +7,7 @@ import com.shibuyaxpress.yupay.models.Inventory
 import com.shibuyaxpress.yupay.tasks.InsertAsyncTask
 import com.shibuyaxpress.yupay.tasks.InsertInventory
 
-class ClothRepository(application: Application) {
+class RoomRepository(application: Application) {
 
     private var clothDao: ClothDAO?=null
     private var inventoryDao: InventoryDAO? = null
@@ -22,11 +22,8 @@ class ClothRepository(application: Application) {
     fun getItems():List<Inventory>?{
         return inventoryDao!!.getAllInventory()
     }
-    fun queryAnInventoryItem(item : Inventory) : LiveData<List<Inventory>>{
-        return inventoryDao!!.getItemBySearch(item.id)
-    }
-    fun insertInventory(item : Inventory){
-        InsertInventory(inventoryDao).execute(item)
+    fun queryAnInventoryItem(item : Long) : LiveData<List<Inventory>>{
+        return inventoryDao!!.getItemBySearch(item)
     }
 
     fun getAllClothes(): LiveData<List<Cloth>>? {
@@ -35,6 +32,10 @@ class ClothRepository(application: Application) {
 
     fun insert(cloth: Cloth){
         InsertAsyncTask(clothDao).execute(cloth)
+    }
+
+    fun insertInventory(item: Inventory):Long{
+        return InsertInventory(inventoryDao).execute(item).get()
     }
 
 

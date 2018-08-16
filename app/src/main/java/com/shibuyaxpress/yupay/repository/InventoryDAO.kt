@@ -8,7 +8,7 @@ import com.shibuyaxpress.yupay.models.Inventory
 @Dao
 interface InventoryDAO {
     @Insert
-    fun insert(item:Inventory?)
+    fun insert(item:Inventory?):Long
 
     @Query("DELETE FROM inventory")
     fun deleteAll()
@@ -17,5 +17,5 @@ interface InventoryDAO {
     fun getAllInventory():List<Inventory>
 
     @Query("SELECT * FROM inventory WHERE id = :id")
-    fun getItemBySearch(id:Int?):LiveData<List<Inventory>>
+    fun getItemBySearch(id:Long?):LiveData<List<Inventory>>
 }

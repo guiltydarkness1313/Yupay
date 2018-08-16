@@ -18,7 +18,7 @@ import java.util.*
         onDelete = ForeignKey.CASCADE)),
         indices = arrayOf(Index(value = "clothId"),Index(value = "ticketId")))
 data class Registry (
-        @PrimaryKey(autoGenerate = true) var id:Int?,
+        @PrimaryKey(autoGenerate = true) var id:Long?,
         var ticketId:Int?,
         var clothId:Int?,
         var registryDate: Date? = Date(System.currentTimeMillis())

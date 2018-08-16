@@ -10,7 +10,7 @@ import java.util.*
 
 @Entity(tableName = "inventory")
 data class Inventory (
-        @PrimaryKey(autoGenerate = true) var id: Int?,
+        @PrimaryKey(autoGenerate = true) var id: Long?,
         @NonNull var stock:Int?,
         @NonNull var lastUpdate:Date = Date(System.currentTimeMillis())
 

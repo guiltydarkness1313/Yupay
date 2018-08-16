@@ -19,6 +19,7 @@ import com.shibuyaxpress.yupay.repository.ClothViewModel
 import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.R
 import com.shibuyaxpress.yupay.models.Inventory
+import com.shibuyaxpress.yupay.repository.ClothRoomDatabase
 import com.shibuyaxpress.yupay.utils.SpacesItemDecoration
 import java.util.*
 
@@ -65,16 +66,19 @@ import java.util.*
        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
            super.onActivityResult(requestCode, resultCode, data)
            if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-               if (data != null) {//cambiar codigo aqui
+               if (data != null) {
+                   val appDatabase = ClothRoomDatabase.getDatabase(this)
+
                    Log.d("CAGADAS",mClothViewModel!!.getItems().toString())
                    val inventory = Inventory(null, data.getIntExtra("stock", 0))
-                   mClothViewModel!!.setInventory(inventory)
-                   val currentInventory = mClothViewModel!!.searchItemFromInventory(inventory)
+                   //se puede hacer insert sin la necesidad de un Async !!
+                   val idInventory :Long = appDatabase!!.inventoryDAO().insert(inventory)/*mClothViewModel!!.setInventory(inventory)*/
+                   val currentInventory = mClothViewModel!!.searchItemFromInventory(idInventory)
                    currentInventory.observe(this, Observer { item ->
                        Log.d("valor",item.toString())
                        val cloth = Cloth(null, data.getStringExtra("name"),
                                data.getDoubleExtra("price", 0.0),
-                               data.getStringExtra("image"), item!!.get(0).id, Date())
+                               data.getStringExtra("image"), item!![0].id!!.toInt(), Date())
                        Log.d("Datos", cloth.toString())
                        mClothViewModel!!.insert(cloth)
                    })

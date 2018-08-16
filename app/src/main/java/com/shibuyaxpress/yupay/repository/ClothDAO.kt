@@ -9,7 +9,7 @@ import com.shibuyaxpress.yupay.models.Cloth
 @Dao
 interface ClothDAO {
     @Insert
-    fun insert(cloth: Cloth?)
+    fun insert(cloth: Cloth?):Long
 
     @Query("DELETE FROM cloth")
     fun deleteAll()

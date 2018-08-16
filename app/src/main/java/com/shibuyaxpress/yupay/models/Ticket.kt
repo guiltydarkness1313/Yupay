@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity(tableName = "ticket")
 data class Ticket(
-        @PrimaryKey(autoGenerate = true) var id:Int?,
+        @PrimaryKey(autoGenerate = true) var id:Long?,
         var date:Date?,
         var totalMoney:Double?
 )

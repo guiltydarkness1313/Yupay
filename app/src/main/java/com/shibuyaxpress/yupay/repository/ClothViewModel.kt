@@ -7,7 +7,7 @@ import com.shibuyaxpress.yupay.models.Cloth
 import com.shibuyaxpress.yupay.models.Inventory
 
 class ClothViewModel(application: Application) : AndroidViewModel(application) {
-    private var mRepository: ClothRepository?=null
+    private var mRepository: RoomRepository?=null
     private var mAllClothes:LiveData<List<Cloth>>?=null
 
     fun getAllClothes():LiveData<List<Cloth>>{
@@ -16,18 +16,18 @@ class ClothViewModel(application: Application) : AndroidViewModel(application) {
     fun insert(cloth: Cloth){
         mRepository!!.insert(cloth)
     }
-    fun searchItemFromInventory(item:Inventory): LiveData<List<Inventory>> {
+    fun searchItemFromInventory(item:Long): LiveData<List<Inventory>> {
         return mRepository!!.queryAnInventoryItem(item)
     }
     fun getItems():List<Inventory>?{
      return mRepository!!.getItems()
     }
-    fun setInventory(item:Inventory){
-        mRepository!!.insertInventory(item)
+    fun setInventory(item:Inventory):Long{
+        return mRepository!!.insertInventory(item)
     }
 
     init {
-        mRepository= ClothRepository(application)
+        mRepository= RoomRepository(application)
         mAllClothes= mRepository!!.getAllClothes()
     }
 }
