@@ -34,7 +34,7 @@ import java.util.*
        override fun onCreate(savedInstanceState: Bundle?) {
            super.onCreate(savedInstanceState)
            setContentView(R.layout.activity_main)
-           supportActionBar!!.title = "Mis productos"
+//           supportActionBar!!.title = "Mis productos"
            buttonFAB = findViewById(R.id.fabAdd)
            recyclerView=findViewById(R.id.recyclerview)
            var adapter = ClothAdapter(this)
@@ -68,20 +68,17 @@ import java.util.*
            if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
                if (data != null) {
                    val appDatabase = ClothRoomDatabase.getDatabase(this)
-
-                   Log.d("CAGADAS",mClothViewModel!!.getItems().toString())
                    val inventory = Inventory(null, data.getIntExtra("stock", 0))
                    //se puede hacer insert sin la necesidad de un Async !!
-                   val idInventory :Long = appDatabase!!.inventoryDAO().insert(inventory)/*mClothViewModel!!.setInventory(inventory)*/
-                   val currentInventory = mClothViewModel!!.searchItemFromInventory(idInventory)
-                   currentInventory.observe(this, Observer { item ->
-                       Log.d("valor",item.toString())
-                       val cloth = Cloth(null, data.getStringExtra("name"),
-                               data.getDoubleExtra("price", 0.0),
-                               data.getStringExtra("image"), item!![0].id!!.toInt(), Date())
-                       Log.d("Datos", cloth.toString())
-                       mClothViewModel!!.insert(cloth)
-                   })
+                   Log.d("CAGADAS",appDatabase!!.inventoryDAO().getAllInventory().toString())
+                   val idInventory :Long = appDatabase!!.inventoryDAO().insert(inventory)
+                   val currentInventory = appDatabase!!.inventoryDAO().getItemBySearch(idInventory)
+                   Log.d("valor",currentInventory.toString())
+                   val cloth = Cloth(null, data.getStringExtra("name"),
+                           data.getDoubleExtra("price", 0.0),
+                           data.getStringExtra("image"), currentInventory!![0].id!!.toInt(), Date())
+                   Log.d("Datos", cloth.toString())
+                   appDatabase!!.clothDao().insert(cloth)
                } else {
                    Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
                }

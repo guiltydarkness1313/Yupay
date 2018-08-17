@@ -16,7 +16,7 @@ class ClothViewModel(application: Application) : AndroidViewModel(application) {
     fun insert(cloth: Cloth){
         mRepository!!.insert(cloth)
     }
-    fun searchItemFromInventory(item:Long): LiveData<List<Inventory>> {
+    fun searchItemFromInventory(item:Long): List<Inventory> {
         return mRepository!!.queryAnInventoryItem(item)
     }
     fun getItems():List<Inventory>?{

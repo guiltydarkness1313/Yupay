@@ -17,5 +17,5 @@ interface InventoryDAO {
     fun getAllInventory():List<Inventory>
 
     @Query("SELECT * FROM inventory WHERE id = :id")
-    fun getItemBySearch(id:Long?):LiveData<List<Inventory>>
+    fun getItemBySearch(id:Long?):List<Inventory>
 }

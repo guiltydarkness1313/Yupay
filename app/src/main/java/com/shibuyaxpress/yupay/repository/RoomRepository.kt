@@ -22,7 +22,7 @@ class RoomRepository(application: Application) {
     fun getItems():List<Inventory>?{
         return inventoryDao!!.getAllInventory()
     }
-    fun queryAnInventoryItem(item : Long) : LiveData<List<Inventory>>{
+    fun queryAnInventoryItem(item : Long) : List<Inventory>{
         return inventoryDao!!.getItemBySearch(item)
     }
 
