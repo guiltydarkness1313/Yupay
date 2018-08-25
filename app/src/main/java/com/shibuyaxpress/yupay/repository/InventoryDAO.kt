@@ -13,6 +13,9 @@ interface InventoryDAO {
     @Query("DELETE FROM inventory")
     fun deleteAll()
 
+    @Query("DELETE FROM cloth WHERE id = :id")
+    fun deleteFromInventory(id:Long?)
+
     @Query("SELECT * FROM inventory ORDER BY id ASC")
     fun getAllInventory():List<Inventory>
 

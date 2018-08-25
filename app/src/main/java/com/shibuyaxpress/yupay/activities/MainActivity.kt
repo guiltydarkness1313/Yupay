@@ -28,16 +28,16 @@ import java.util.*
 
        private var mClothViewModel: ClothViewModel?=null
        private var recyclerView: RecyclerView? = null
-       private var buttonFAB: FloatingActionButton? = null
+       private var buttonFABUI: FloatingActionButton? = null
+       private var buttonFABOR: FloatingActionButton? = null
        private val NEW_WORD_ACTIVITY_REQUEST_CODE = 1
 
        override fun onCreate(savedInstanceState: Bundle?) {
            super.onCreate(savedInstanceState)
            setContentView(R.layout.activity_main)
-//           supportActionBar!!.title = "Mis productos"
-           buttonFAB = findViewById(R.id.fabAdd)
+           buttonFABUI = findViewById(R.id.fabAddUnderImage)
            recyclerView=findViewById(R.id.recyclerview)
-           var adapter = ClothAdapter(this)
+           val adapter = ClothAdapter(this)
            recyclerView!!.adapter=adapter
            val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
            recyclerView!!.addItemDecoration(SpacesItemDecoration(spacingInPixels))
@@ -47,10 +47,6 @@ import java.util.*
            mClothViewModel!!.getAllClothes().observe(this, Observer{ cloth->
                adapter.setNameOfCloth(cloth!!)
            })
-           buttonFAB!!.setOnClickListener {
-               val intent=Intent(this@MainActivity, NewClothActivity::class.java)
-               startActivityForResult(intent,NEW_WORD_ACTIVITY_REQUEST_CODE)
-           }
        }
 
        private fun checkOrientation(conf: Configuration){
@@ -71,20 +67,25 @@ import java.util.*
                    val inventory = Inventory(null, data.getIntExtra("stock", 0))
                    //se puede hacer insert sin la necesidad de un Async !!
                    Log.d("CAGADAS",appDatabase!!.inventoryDAO().getAllInventory().toString())
-                   val idInventory :Long = appDatabase!!.inventoryDAO().insert(inventory)
-                   val currentInventory = appDatabase!!.inventoryDAO().getItemBySearch(idInventory)
+                   val idInventory :Long = appDatabase.inventoryDAO().insert(inventory)
+                   val currentInventory = appDatabase.inventoryDAO().getItemBySearch(idInventory)
                    Log.d("valor",currentInventory.toString())
                    val cloth = Cloth(null, data.getStringExtra("name"),
                            data.getDoubleExtra("price", 0.0),
-                           data.getStringExtra("image"), currentInventory!![0].id!!.toInt(), Date())
+                           data.getStringExtra("image"), currentInventory[0].id!!.toInt(), Date())
                    Log.d("Datos", cloth.toString())
-                   appDatabase!!.clothDao().insert(cloth)
+                   appDatabase.clothDao().insert(cloth)
                } else {
                    Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
                }
            }else{
                Toast.makeText(applicationContext,"los datos estan vacios", Toast.LENGTH_SHORT).show()
            }
+       }
+
+       fun createNewCloth(){
+           val intent=Intent(this@MainActivity, NewClothActivity::class.java)
+           startActivityForResult(intent,NEW_WORD_ACTIVITY_REQUEST_CODE)
        }
 
    }
