@@ -15,11 +15,11 @@ import java.util.*
         childColumns = arrayOf("inventoryId"),
         onDelete =  ForeignKey.CASCADE)),
         indices = arrayOf(Index(value = "inventoryId")))
-data class Cloth (@PrimaryKey(autoGenerate = true) var id: Long?,
-                  @NonNull var name: String?,
-                  @NonNull var price: Double?,
-                  @NonNull var image: String?,
-                  @NonNull var inventoryId:Int?,
-                  var createdAt:Date?
+data class Cloth (@PrimaryKey(autoGenerate = true) var id: Long? = null,
+                  @NonNull var name: String? = null,
+                  @NonNull var price: Double? = null,
+                  @NonNull var image: String? = null,
+                  @NonNull var inventoryId:Int? = null,
+                  var createdAt:Date? = null
                   )
 

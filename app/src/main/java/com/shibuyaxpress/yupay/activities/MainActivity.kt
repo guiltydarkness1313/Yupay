@@ -36,6 +36,7 @@ import java.util.*
            super.onCreate(savedInstanceState)
            setContentView(R.layout.activity_main)
            buttonFABUI = findViewById(R.id.fabAddUnderImage)
+           buttonFABOR = findViewById(R.id.fabAddInScroll)
            recyclerView=findViewById(R.id.recyclerview)
            val adapter = ClothAdapter(this)
            recyclerView!!.adapter=adapter
@@ -47,6 +48,12 @@ import java.util.*
            mClothViewModel!!.getAllClothes().observe(this, Observer{ cloth->
                adapter.setNameOfCloth(cloth!!)
            })
+           buttonFABOR!!.setOnClickListener {
+               createNewCloth()
+           }
+           buttonFABUI!!.setOnClickListener {
+               createNewCloth()
+           }
        }
 
        private fun checkOrientation(conf: Configuration){
