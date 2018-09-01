@@ -23,10 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NewClothActivity" />
-        <activity android:name=".activities.NewItemActivity" />
-        <activity android:name=".activities.ItemActivity" />
         <activity android:name=".activities.AddStockActivity" />
-        <activity android:name=".activities.DetailClothActivity"></activity>
+        <activity android:name=".activities.DetailClothActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
