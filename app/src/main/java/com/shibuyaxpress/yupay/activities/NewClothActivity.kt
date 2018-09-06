@@ -2,22 +2,30 @@ package com.shibuyaxpress.yupay.activities
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
+import android.net.Uri
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.util.Log
 import android.widget.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.shibuyaxpress.yupay.utils.GlideApp
 import com.shibuyaxpress.yupay.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.net.URI
 import java.util.*
 
 class NewClothActivity : AppCompatActivity() {
@@ -46,6 +54,9 @@ class NewClothActivity : AppCompatActivity() {
         removeButton = findViewById(R.id.btnMinus)
         addButton = findViewById(R.id.btnPlus)
         editStock = findViewById(R.id.editTextStock)
+        Glide.with(this)
+                .load("https://1.bp.blogspot.com/-6c439m3Lf3M/Wm_LFe-zRuI/AAAAAAAK_tA/tGnqwJedCUgtMZXhgo5ieAygNLx0ZPKJgCLcBGAs/s1600/AS003590_11.gif")
+                .into(imageView!!)
         supportActionBar!!.title = "Ingrese un nuevo producto"
         editStock!!.setText("0")
         stockManagement()
@@ -144,6 +155,7 @@ class NewClothActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK,replyIntent)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
@@ -151,13 +163,16 @@ class NewClothActivity : AppCompatActivity() {
                 if(data != null){
                     val contentURI = data.data
                     try{
-                        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                        //val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                        //How to save data from the origin path and send it to my folder
+                        val data = contentURI
+                        var path = getPathFromImage(this,data)
+                        Log.d("data info",path)
                         GlideApp.with(this)
-                                .load(bitmap)
+                                .load(path)
                                 .placeholder(R.drawable.ic_image_black_24dp)
-                                .fitCenter()
                                 .into(imageView!!)
-                        setValueForImageBitmap(bitmap)
+                        //setValueForImageBitmap(bitmap)
                     }catch (e: IOException){
                         e.printStackTrace()
                         Toast.makeText(this@NewClothActivity,"Fallo!",Toast.LENGTH_SHORT)
@@ -206,6 +221,23 @@ class NewClothActivity : AppCompatActivity() {
             e1.printStackTrace()
         }
         return ""
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getPathFromImage(context: Context, uri: Uri):String?{
+        var result:String? = null
+        var proj = arrayOf(MediaStore.Images.Media.DATA)
+        var cursor:Cursor = context.contentResolver.query(uri,proj,null,null)
+        if (cursor!=null){
+            if (cursor.moveToFirst()){
+                var columnIndex = cursor.getColumnIndexOrThrow(proj[0])
+                result = cursor.getString(columnIndex)
+            }
+            cursor.close()
+        }
+        if (result == null){
+            result = "not found"
+        }
+        return result
     }
     companion object {
         private const val IMAGE_DIRECTORY = "/yupay"

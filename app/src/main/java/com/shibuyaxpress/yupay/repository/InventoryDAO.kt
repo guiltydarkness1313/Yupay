@@ -22,6 +22,6 @@ interface InventoryDAO {
     @Query("SELECT * FROM inventory WHERE id = :id")
     fun getItemBySearch(id:Long?):List<Inventory>
 
-    @Query("SELECT * FROM cloth INNER JOIN inventory ON inventory.id = :inventoryId")
-    fun getDataFromJoinCloth(inventoryId:Long):List<Inven>
+    /*@Query("SELECT * FROM cloth INNER JOIN inventory ON inventory.id = :inventoryId")
+    fun getDataFromJoinCloth(inventoryId:Long):List<Inventory>*/
 }

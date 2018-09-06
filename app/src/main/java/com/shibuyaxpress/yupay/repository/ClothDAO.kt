@@ -19,4 +19,7 @@ interface ClothDAO {
 
     @Query("SELECT * FROM cloth ORDER BY name ASC")
     fun getAllClothes():LiveData<List<Cloth>>
+
+    @Query("SELECT * FROM cloth WHERE id = :id")
+    fun getClothById(id:Int):List<Cloth>
 }
